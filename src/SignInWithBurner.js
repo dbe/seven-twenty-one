@@ -3,6 +3,8 @@ import signIn from 'sign-in-with-burner';
 
 import './App.css';
 
+console.log('signIn: ', signIn);
+
 class SignInWithBurner extends Component{
   constructor(props) {
     super(props)
@@ -30,7 +32,7 @@ class SignInWithBurner extends Component{
 
   signInButton() {
     return (
-      <button id="sign-in" onclick="this.handleClick">
+      <button id="sign-in" onClick={this.handleClick}>
         Sign in with Burner
       </button>
     )
