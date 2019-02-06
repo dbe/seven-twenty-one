@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import signIn from 'sign-in-with-burner';
-
 import './App.css';
 
-console.log('signIn: ', signIn);
+import signIn from 'sign-in-with-burner';
 
 class SignInWithBurner extends Component{
   constructor(props) {
@@ -13,15 +11,16 @@ class SignInWithBurner extends Component{
       address: undefined
     }
 
-    this.handleClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick() {
     signIn({
-      burnerUrl: 'localhost:3000',
+      burnerUrl: 'http://localhost:3001',
       siteName: 'Seven Twenty One'
 
     }).then(address => {
+      console.log('this: ', this);
       this.setState({address})
 
     }).catch(e => {
