@@ -5,7 +5,7 @@ import signIn from 'sign-in-with-burner';
 
 const SignInWithBurner = (props) => {
   return (
-    <button class = "pure-button" id="sign-in" onClick={() => handleClick(props.updateAddress)}>
+    <button className= "pure-button" id="sign-in" onClick={() => handleClick(props.updateAddress)}>
       Sign in with Burner
     </button>
   );

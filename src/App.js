@@ -1,5 +1,7 @@
 import Blockies from 'react-blockies';
 import React, { Component } from 'react';
+
+import OpenSea from './OpenSea';
 import SignInWithBurner from './SignInWithBurner';
 
 import './App.css';
@@ -40,6 +42,7 @@ class App extends Component {
         <h1>Seven Twenty One</h1>
         {this.renderSignInButton()}
         {this.renderBlocky()}
+        <OpenSea address={this.state.address}/>
       </div>
     );
   }
