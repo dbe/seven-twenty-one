@@ -1,3 +1,4 @@
+import Blockies from 'react-blockies';
 import React, { Component } from 'react';
 import SignInWithBurner from './SignInWithBurner';
 
@@ -26,6 +27,11 @@ class App extends Component {
   renderBlocky() {
     let blocky;
 
+    if(this.state.address !== undefined) {
+      blocky = <Blockies seed={this.state.address}/>
+    }
+
+    return blocky;
   }
 
   render() {
