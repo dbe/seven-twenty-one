@@ -24,10 +24,7 @@ class OpenSea extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('prevProps: ', prevProps);
-    console.log('this.state.showAll: ', this.state.showAll);
     if (prevProps.address !== this.props.address || prevState.showAll !== this.state.showAll) {
-      console.log("About to fetch")
       this.fetchAssets();
     }
   }
