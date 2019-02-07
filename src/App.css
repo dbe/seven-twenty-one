@@ -22,3 +22,23 @@
   padding: 2px 16px;
   text-align: center;
 }
+
+.card a {
+  color: #000000;
+  text-decoration: none;
+}
+
+#assets {
+  margin-top: 50px;
+}
+
+.filter {
+  font-size: 24px;
+  margin-left: 25px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.toggle {
+  margin-left: 25px;
+}

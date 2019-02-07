@@ -12,57 +12,74 @@ class OpenSea extends Component {
     let provider = new Web3.providers.HttpProvider('https://mainnet.infura.io')
     this.seaport = new OpenSeaPort(provider, {networkName: Network.Main})
 
-    this.fetchAssets()
 
     this.state = {
-      assets: []
+      assets: [],
+      showAll: true
     }
   }
 
-  fetchAssets() {
-    this.seaport.api.getAssets().then(response => {
-      console.log('assets: ', response.assets);
+  componentDidMount() {
+    this.fetchAssets()
+  }
 
-      console.log('response.assets: ', response.assets);
+  componentDidUpdate(prevProps, prevState) {
+    console.log('prevProps: ', prevProps);
+    console.log('this.state.showAll: ', this.state.showAll);
+    if (prevProps.address !== this.props.address || prevState.showAll !== this.state.showAll) {
+      console.log("About to fetch")
+      this.fetchAssets();
+    }
+  }
+
+  handleToggle() {
+    this.setState({
+      showAll: !this.state.showAll
+    })
+  }
+
+  fetchAssets() {
+    let owner = this.state.showAll ? undefined : this.props.address;
+
+    this.seaport.api.getAssets({
+      owner: owner
+    }).then(response => {
       this.setState({assets: response.assets})
     })
   }
 
   renderAssets() {
-    console.log("in renderassets")
-    console.log('this.state: ', this.state);
-
     let assets = this.state.assets.filter(asset => asset.imageUrl).map(asset => this.renderAsset(asset))
 
     return (
-      <div id="assets" className="pure-g">
-        { assets }
+      <div className="pure-g">
+        {assets.length === 0 ? <p className="pure-u-1">No ERC-721s :(</p> : assets}
       </div>
     )
   }
 
   renderAsset(asset) {
-    console.log("in render asset")
-    console.log('this.state: ', this.state);
-    console.log('asset: ', asset);
-
     return (
-      <div className="pure-u-1 pure-u-sm-1-3" key={asset.openseaLink}>
-        <div className="card">
-          <img src={asset.imageUrl} />
-          <div className="container">
-            <p>{asset.assetContract.name}</p>
+      <div className="pure-u-1 pure-u-md-1-3" key={asset.openseaLink}>
+          <div className="card">
+            <a href={asset.openseaLink}>
+              <img src={asset.imageUrl} />
+              <div className="container">
+                <p>{asset.assetContract.name}</p>
+              </div>
+            </a>
           </div>
         </div>
-      </div>
     )
   }
 
   render() {
-    console.log("in render")
-    console.log('this.state: ', this.state);
     return  (
-      <div>
+      <div id="assets" >
+        <div className="pure-g">
+          <p className="filter pure-u-1">{this.state.showAll ? "All ERC-721s" : "Only yours"}</p>
+          <button className={"pure-button toggle " + (this.props.address === undefined ? 'pure-button-disabled' : '')} onClick={this.handleToggle.bind(this)} >{this.state.showAll ? "Show mine" : "Show all"}</button>
+        </div>
         {this.renderAssets()}
       </div>
     )

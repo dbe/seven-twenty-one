@@ -33,7 +33,12 @@ class App extends Component {
       blocky = <Blockies seed={this.state.address}/>
     }
 
-    return blocky;
+    return (
+      <div>
+        <p>{this.state.address}</p>
+        { blocky }
+      </div>
+    )
   }
 
   render() {
