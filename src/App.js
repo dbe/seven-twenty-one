@@ -39,10 +39,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Seven Twenty One</h1>
-        {this.renderSignInButton()}
-        {this.renderBlocky()}
-        <OpenSea address={this.state.address}/>
+        <div className="header">
+          <h1>Seven Twenty One</h1>
+          {this.renderSignInButton()}
+          {this.renderBlocky()}
+        </div>
+        <div className="content">
+          <OpenSea address={this.state.address}/>
+        </div>
       </div>
     );
   }
