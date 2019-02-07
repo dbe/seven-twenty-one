@@ -1,45 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 
 import signIn from 'sign-in-with-burner';
 
-class SignInWithBurner extends Component{
-  constructor(props) {
-    super(props)
+const SignInWithBurner = (props) => {
+  return (
+    <button id="sign-in" onClick={() => handleClick(props.updateAddress)}>
+      Sign in with Burner
+    </button>
+  );
+}
 
-    this.state = {
-      address: undefined
-    }
+function handleClick(updateAddress) {
+  signIn({
+    burnerUrl: 'https://xdai.io/login',
+    siteName: 'Seven Twenty One'
 
-    this.handleClick = this.handleClick.bind(this);
-  }
+  }).then(address => {
+    updateAddress(address);
 
-  handleClick() {
-    signIn({
-      burnerUrl: 'http://localhost:3001',
-      siteName: 'Seven Twenty One'
+  }).catch(e => {
+    console.log("Error logging in with burner: ", e)
 
-    }).then(address => {
-      console.log('this: ', this);
-      this.setState({address})
-
-    }).catch(e => {
-      console.log("Error logging in with burner: ", e)
-
-    });
-  }
-
-  signInButton() {
-    return (
-      <button id="sign-in" onClick={this.handleClick}>
-        Sign in with Burner
-      </button>
-    )
-  }
-
-  render() {
-    return (this.state.address === undefined) ? this.signInButton() : this.state.address;
-  }
+  });
 }
 
 export default SignInWithBurner;
